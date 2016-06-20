@@ -1,0 +1,3 @@
+mvn -Dmaven.test.skip=true clean install && java -jar target/spring-boot-3-0.1.0.jar
+
+curl -X POST lh:8080/score/navid -d 'navid sdf awef awf rth navid' -H 'Content-Type: text/plain'

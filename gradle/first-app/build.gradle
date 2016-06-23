@@ -1,0 +1,7 @@
+apply plugin: 'java'
+
+task(runMain, dependsOn: 'classes', type: JavaExec) {
+    main = 'com.navid.Hello'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'ghermez'
+}

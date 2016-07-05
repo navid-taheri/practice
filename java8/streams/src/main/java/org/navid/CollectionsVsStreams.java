@@ -8,48 +8,39 @@ import java.util.stream.Collectors;
  */
 public class CollectionsVsStreams {
     public static void main(String [] args){
-        System.out.println("Gor Beh");
-
-
-
-        long start = System.currentTimeMillis();
-        //usingCollections();
-
-        usingStreams();
-        long end = System.currentTimeMillis();
-
-        System.out.println((end - start));
-
-
-
-
-    }
-
-    private static void usingStreams() {
-
         Random random = new Random();
 
         final List<Integer> list = new ArrayList();
 
-        for (int i = 0; i < 1000000 ; i++){
+        for (int i = 0; i < 10000000 ; i++){
             list.add(random.nextInt());
         }
-
-
-        ArrayList<Integer> transactionsIds = list.stream(i -> System.out.println(i));
+        usingStreams(list);
+        usingCollections(list);
+        //usingParallelStreams(list);
 
 
     }
 
-    private static void usingCollections() {
 
-        Random random = new Random();
+    private static void usingStreams(List<Integer> list) {
+        long start = System.currentTimeMillis();
 
-        List<Integer> list = new ArrayList();
+       List<String> transactionsIds = list.stream()
+               .filter(i -> i % 2 == 0)
+               .sorted()
+               .map(i -> Integer.toString(i))
+               .collect(Collectors.toList());
 
-        for (int i = 0; i < 1000000 ; i++){
-            list.add(random.nextInt());
-        }
+        long end = System.currentTimeMillis();
+        System.out.println("Streams:");
+        System.out.println((end - start));
+
+
+    }
+
+    private static void usingCollections(List<Integer> list) {
+        long start = System.currentTimeMillis();
 
         List<Integer> evenList = new ArrayList();
 
@@ -66,5 +57,12 @@ public class CollectionsVsStreams {
         for (Integer i : evenList){
             sortedStringList.add(String.valueOf(i));
         }
+
+        long end = System.currentTimeMillis();
+        System.out.println("Collections:");
+        System.out.println((end - start));
+
+
     }
+
 }

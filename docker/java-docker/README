@@ -1,2 +1,5 @@
 docker build -t navid/app .
 docker run -it navid/app
+docker login
+docker tag navid/app:latest taheri/java-maven:latest
+docker push taheri/java-maven

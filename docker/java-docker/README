@@ -1,0 +1,2 @@
+docker build -t navid/app .
+docker run -it navid/app
